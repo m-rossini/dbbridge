@@ -1,0 +1,31 @@
+package br.com.auster.test;
+ 
+global java.util.List results;
+
+import br.com.auster.test.facts.Message;
+
+function void println(String text) {
+	System.out.println(text);
+}
+
+rule "Hello World"
+	when
+		$m : Message( status == Message.HELLO, $message : message )
+	then
+		results.add("Hello message");
+		println( $message ); 
+		$m.setMessage( "Goodbye cruel world" );
+		$m.setStatus( Message.GOODBYE );
+		modify( $m );
+end
+
+rule "GoodBye"
+	no-loop true
+	when
+		$m : Message( status == Message.GOODBYE, $message : message )
+	then
+		results.add("Goodbye message");
+		println( $message ); 
+		$m.setMessage( $message );
+		
+end

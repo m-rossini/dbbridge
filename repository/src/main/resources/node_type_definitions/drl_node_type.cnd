@@ -1,0 +1,28 @@
+/*  The node type definition for the rule node type.  
+    See http://jackrabbit.apache.org/doc/nodetype/cnd.html for an explanation
+*/
+
+// The namespace declaration
+<auster = 'http://www.auster.com.br/auster-repository/1.0'>
+<nt='http://www.jcp.org/jcr/nt/1.0'>
+<mix='http://www.jcp.org/jcr/mix/1.0'>
+
+// Node type name
+[auster:drlNodeType]
+
+// Supertypes
+> 'auster:versionableNodeType'
+
+// Properties:
+- auster:content (string)
+
+- auster:dateEffective (date)
+
+- auster:dateExpired (date)
+  
+- auster:packageName (string)
+//  mandatory
+
+- auster:dslReference (reference)
+  copy 
+  < 'auster:dslNodeType','nt:version'

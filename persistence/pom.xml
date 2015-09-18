@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>Auster Persistence Bridge</name>
+  <artifactId>persistence-bridge</artifactId>
+  <groupId>auster</groupId>
+  <packaging>jar</packaging>
+  <url>https://jean/sites/${pom.groupId}/${pom.artifactId}-${pom.version}/index.html</url>
+
+  <version>2.0.3</version>
+
+  <organization>
+    <name>Auster Solutions do Brasil</name>
+    <url>http://www.auster.com.br/</url>
+  </organization>  
+  <issueManagement>
+    <system>Trac</system>
+    <url>https://jean/projects/dbbridge</url>
+  </issueManagement>
+		
+  <repositories>
+    <!-- Auster Central Repository -->
+    <repository>
+      <id>auster</id>
+      <name>Auster Central Repository</name>
+      <url>http://jean/repository</url>
+      <layout>legacy</layout>
+    </repository>
+  </repositories>	
+		
+  <ciManagement>
+    <system>continuum</system>
+    <notifiers>
+      <notifier>
+        <type>mail</type>
+        <configuration>
+          <address>continuum@auster.com.br</address>
+        </configuration>
+      </notifier>
+    </notifiers>
+  </ciManagement> 
+ 	 
+  <scm>
+    <connection>file:///svn:svn://continuum@jean/auster/dbbridge/trunk/persistence</connection>
+  </scm>
+ 	 
+  <distributionManagement>
+    <repository>
+      <id>auster-central-repo</id>
+      <name>Auster Central Repository</name>
+      <url>file:///repository/maven-env/central-repository</url>
+      <layout>legacy</layout>
+    </repository>
+    <site>
+      <id>local-site</id>
+      <url>file:///repository/documentation/sites/${pom.groupId}/${pom.artifactId}-${pom.version}/</url>
+    </site>
+  </distributionManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>auster</groupId>
+      <artifactId>auster-commons-base</artifactId>
+      <version>2.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.12</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.transaction</groupId>
+      <artifactId>jta</artifactId>
+      <version>1.0.1B</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>3.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>oracle</groupId>
+      <artifactId>oracle-jdbc4g</artifactId>
+      <version>10.2.0</version>
+	  <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql-jdbc3</artifactId>
+      <version>8.0.3</version>
+	  <scope>test</scope>
+    </dependency>
+	  
+  </dependencies>
+
+  <reporting>
+    <plugins>
+      <plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>taglist-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+      <!-- <plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>surefire-report-maven-plugin</artifactId>
+      </plugin> 
+      <plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <rulesets>
+            <ruleset>/rulesets/basic.xml</ruleset>
+            <ruleset>/rulesets/controversial.xml</ruleset>
+          </rulesets>
+          <format>xml</format>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+        </configuration>
+      </plugin>
+     <!-- This customization is needed due to bug MPIR-19 (http://jira.codehaus.org/browse/MPIR-19) -->
+      <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-project-info-reports-plugin</artifactId>
+         <reportSets>
+            <reportSet>
+               <reports>
+                  <!-- report>dependencies</report -->
+                  <report>project-team</report>
+                  <report>mailing-list</report>
+                  <report>cim</report>
+                  <report>issue-tracking</report>
+                  <report>license</report>
+                  <report>scm</report>
+               </reports>
+            </reportSet>
+         </reportSets>
+      </plugin>      
+    </plugins>
+  </reporting> 
+	
+  <build>
+    <plugins>
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<configuration>
+		  <source>1.4</source>
+		  <target>1.4</target>
+		</configuration>
+	  </plugin>
+      <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-javadoc-plugin</artifactId>
+         <configuration>
+            <destDir>/repository/documentation/sites/${pom.groupId}/${pom.artifactId}-${pom.version}/jdocs/</destDir>
+             <linksource>true</linksource>
+         </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

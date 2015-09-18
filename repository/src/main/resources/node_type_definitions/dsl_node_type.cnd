@@ -1,0 +1,18 @@
+/*  The node type definition for the dsl node type.  
+    See http://jackrabbit.apache.org/doc/nodetype/cnd.html for an explanation
+*/
+
+// The namespace declaration
+<auster = 'http://www.auster.com.br/auster-repository/1.0'>
+<nt='http://www.jcp.org/jcr/nt/1.0'>
+<mix='http://www.jcp.org/jcr/mix/1.0'>
+
+// Node type name
+[auster:dslNodeType]
+
+// Supertypes
+> 'auster:versionableNodeType'
+
+// Properties
+- auster:dslContent (string)
+  mandatory

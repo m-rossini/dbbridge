@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="auster-repository" default="app.run">
+
+	<property environment="env"/>
+
+	<target name="app.run">
+
+		<path id="run.classpath">
+			<fileset dir="${basedir}/lib" includes="*"/>
+		</path>
+
+		<java classname="br.com.auster.repo.tools.ImportRules2Repository"
+           dir="${basedir}">
+			<sysproperty key="java.endorsed.dirs"
+                     value="${basedir}/lib/endorsed"/>
+
+			<arg line="${cmdline.args}" />
+
+			<classpath>
+				<path refid="run.classpath"/>
+			</classpath>
+		</java>
+
+	</target>
+
+</project>

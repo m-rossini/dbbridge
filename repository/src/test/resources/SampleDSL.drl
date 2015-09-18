@@ -1,0 +1,32 @@
+package br.com.auster.test;
+ 
+global java.util.List results;
+
+import br.com.auster.test.facts.Message;
+
+expander SampleDSL.dsl;
+
+function void println(String text) {
+	System.out.println(text);
+}
+
+rule "Hello World"
+	when
+		Type is Hello.
+	then
+		Add result "Hello message".
+		Show message text.
+		Set Message Text to "Goodbye cruel world".
+		Set Message Type to Good Bye.
+		Update MessageObj.
+end
+
+rule "GoodBye"
+	no-loop true
+	when
+		Type is Good Bye.
+	then
+		Add result "Goodbye message".
+		Show message text.
+		Set Message Text to message text.
+end

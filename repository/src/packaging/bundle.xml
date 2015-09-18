@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="Auster-repository Cmdline Packaging" basedir="@[user.dir]@" default="build-distribution">
+
+    <property environment="env"/>
+	<property   name="bundle.workdir" 
+				value="@[user.dir]@/target/bundling"/>
+	<property   name="bundle.filename" 
+				value="@[project.currentArtifact]@-@[project.currentVersion]@.zip"/>
+	<property   name="source.dir"      
+				value="@[user.dir]@/src/main"/>
+
+	<target name="prepare-workdir">
+		<delete dir="${bundle.workdir}"/>
+		<mkdir dir="${bundle.workdir}"/>
+		<mkdir dir="${bundle.workdir}/log"/>		
+	</target>
+
+    <target name="build-distribution" depends="prepare-workdir">
+
+		<zip destfile="${bundle.workdir}/${bundle.filename}">
+			<zipfileset file="${bundle.workdir}/license.bin"/>
+			<zipfileset dir="${source.dir}/bin"     prefix="bin"/>
+			<zipfileset dir="${source.dir}/resources"    prefix="resources"
+				        excludes="key.bin,bck-rules.xml,**/*.passwd"/>
+			<zipfileset dir="${bundle.workdir}/log" prefix="log"/>
+			<!-- dependent lib.s -->
+
+			<zipfileset file="@[commons-cli:commons-cli]@" prefix="lib"/>
+			<zipfileset file="@[commons-collections:commons-collections]@" prefix="lib"/>
+			<zipfileset file="@[concurrent:concurrent]@" prefix="lib"/>
+			<zipfileset file="@[org.drools:drools-core]@" prefix="lib"/>
+			<zipfileset file="@[org.apache.jackrabbit:jackrabbit-core]@" prefix="lib"/>
+			<zipfileset file="@[javax.jcr:jcr]@" prefix="lib"/>
+			<zipfileset file="@[log4j:log4j]@" prefix="lib"/>
+			<zipfileset file="@[lucene:lucene]@" prefix="lib"/>
+			<zipfileset file="@[org.slf4j:slf4j-log4j12]@" prefix="lib"/>
+			<zipfileset file="@[xalan:xalan]@" prefix="lib"/>
+			<zipfileset file="@[xerces:xerces]@" prefix="lib"/>
+			<zipfileset file="@[xerces:xercesImpl]@" prefix="lib"/>
+			<zipfileset file="@[xerces:xmlParserAPIs]@" prefix="lib"/>
+			<!-- cmdline jar -->
+			<zipfileset file="target/@[auster:auster-repository]@" prefix="lib"/>
+		</zip>
+	</target>
+	
+</project>
+
